@@ -2,7 +2,12 @@ import '../string_utils.dart';
 
 enum LoginType { email, phone }
 
-class User {
+mixin UserUtils {
+ 
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1).toLowerCase();
+}
+
+class User with UserUtils{
   String email;
   String phone;
 
@@ -80,7 +85,8 @@ class User {
     return email;
   }
 
-  String get name => "${"".capitalize(_firstName)} ${"".capitalize(_lastName)}";
+  // String get name => "${"".capitalize(_firstName)} ${"".capitalize(_lastName)}";
+   String get name => "${capitalize(_firstName)} ${capitalize(_lastName)}";
 
   @override
   bool operator ==(Object object) {
