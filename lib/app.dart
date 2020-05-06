@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: FullScreenImage(
           name: 'Vasya',
-          userName: '@Vasya',
+          userName: 'Vasya',
           altDescription: 'This is Flutter dash. I like it :)'),
     );
   }

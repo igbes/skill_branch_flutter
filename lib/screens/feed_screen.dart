@@ -35,7 +35,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
               onPressed: () {}),
         ),
         body: ListView.builder(
-            itemCount: 10,
+            itemCount: 1,
             itemBuilder: (BuildContext context, int index) {
               return Column(children: <Widget>[
                 _buildItem(index),
@@ -71,7 +71,7 @@ class _FullScreenImageState extends State<FullScreenImage> {
                   : Text(widget.name, style: AppStyles.h1Black),
               widget.userName == null
                   ? Text('')
-                  : Text(widget.userName,
+                  : Text('@${widget.userName}',
                       style:
                           AppStyles.h5Black.copyWith(color: AppColors.manatee)),
             ],
