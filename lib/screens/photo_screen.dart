@@ -10,9 +10,10 @@ import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
 
 class FullScreenImage extends StatefulWidget {
   FullScreenImage(
-      {this.name, this.userName, this.altDescription, this.index, Key key})
+      {this.photo, this.name, this.userName, this.altDescription, this.index, Key key})
       : super(key: key);
 
+  final String photo;
   final String name;
   final String userName;
   final String altDescription;
@@ -76,7 +77,7 @@ class _FullScreenImageState extends State<FullScreenImage>
       children: <Widget>[
         Hero(
             tag: 'flutterLogo-${widget.index}',
-            child: Photo(photoLink: kFlutterDash)),
+            child: Photo(photoLink: widget.photo)),
         _photoDescription(),
         _BuildPhotoMeta(
           controller: _controller,

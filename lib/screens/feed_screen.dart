@@ -43,7 +43,7 @@ class _FeedState extends State<Feed> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => FullScreenImage(name: 'Vasya Pupkin', userName: 'vasya', index: index)));
+                MaterialPageRoute(builder: (context) => FullScreenImage(photo: kFlutterDash, name: 'Vasya Pupkin', userName: 'vasya', index: index)));
           },
           child: Hero(tag: 'flutterLogo-$index', child: Photo(photoLink: kFlutterDash)),
           // child: Photo(photoLink: kFlutterDash)
