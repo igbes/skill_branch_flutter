@@ -2,7 +2,7 @@ import 'package:FlutterGalleryApp/res/app_icons.dart';
 import 'package:flutter/material.dart';
 
 class LikeButton extends StatefulWidget {
-  LikeButton(this.likeCount, this.isliked, {Key key}) : super(key: key);
+  LikeButton({this.likeCount, this.isliked, Key key}) : super(key: key);
 
   final int likeCount;
   final bool isliked;
