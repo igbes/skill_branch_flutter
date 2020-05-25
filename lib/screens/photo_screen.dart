@@ -88,7 +88,7 @@ class _FullScreenImageState extends State<FullScreenImage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Hero(
-            tag: '${widget.heroTag}-${widget.index}',
+            tag: '${widget.heroTag}${widget.index}',
             child: Photo(photoLink: widget.photo)),
         _photoDescription(),
         _BuildPhotoMeta(

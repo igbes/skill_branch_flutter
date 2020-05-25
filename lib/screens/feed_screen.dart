@@ -10,6 +10,7 @@ import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
 
 const String kFlutterDash =
     'https://flutter.dev/assets/404/dash_nest-c64796b59b65042a2b40fae5764c13b7477a592db79eaf04c86298dcb75b78ea.png';
+const String kTag = 'flutterLogo';
 
 class Feed extends StatefulWidget {
   Feed({Key key}) : super(key: key);
@@ -46,7 +47,7 @@ class _FeedState extends State<Feed> {
               context,
               MaterialPageRoute(
                 builder: (context) => FullScreenImage(
-                  heroTag: 'flutterLogo',
+                  heroTag: kTag,
                   userPhoto:
                       'https://skill-branch.ru/img/speakers/Adechenko.jpg',
                   photo: kFlutterDash,
@@ -58,7 +59,7 @@ class _FeedState extends State<Feed> {
             );
           },
           child: Hero(
-              tag: 'flutterLogo-$index', child: Photo(photoLink: kFlutterDash)),
+              tag: '$kTag$index', child: Photo(photoLink: kFlutterDash)),
         ),
         _buildPhotoMeta(index),
         Padding(
