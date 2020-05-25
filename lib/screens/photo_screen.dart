@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'feed_screen.dart';
 import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/widgets/like_button.dart';
@@ -10,9 +9,16 @@ import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
 
 class FullScreenImage extends StatefulWidget {
   FullScreenImage(
-      {this.photo, this.name, this.userName, this.altDescription, this.index, Key key})
+      {this.userPhoto,
+      this.photo,
+      this.name,
+      this.userName,
+      this.altDescription,
+      this.index,
+      Key key})
       : super(key: key);
 
+  final String userPhoto;
   final String photo;
   final String name;
   final String userName;
@@ -36,13 +42,13 @@ class _FullScreenImageState extends State<FullScreenImage>
       duration: const Duration(milliseconds: 1500),
     );
 
-    _playAnimation();  
+    _playAnimation();
   }
 
   Future<void> _playAnimation() async {
     try {
       await _controller.forward();
-      } on TickerCanceled {
+    } on TickerCanceled {
       // the animation got canceled, probably because we were disposed
     }
   }
@@ -55,20 +61,24 @@ class _FullScreenImageState extends State<FullScreenImage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.white,
-          title: Text('Photo', style: TextStyle(color: AppColors.black)),
-          centerTitle: true,
-          leading: IconButton(
-              icon: Icon(CupertinoIcons.back, color: AppColors.grayChateau),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
+      appBar: AppBar(
+        backgroundColor: AppColors.white,
+        title: Text('Photo', style: TextStyle(color: AppColors.black)),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(CupertinoIcons.back, color: AppColors.grayChateau),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Column(children: <Widget>[
+      ),
+      body: Column(
+        children: <Widget>[
           _buildItem(),
           Divider(thickness: 2.0, color: AppColors.mercury),
-        ]));
+        ],
+      ),
+    );
   }
 
   Widget _buildItem() {
@@ -83,6 +93,7 @@ class _FullScreenImageState extends State<FullScreenImage>
           controller: _controller,
           name: widget.name,
           userName: widget.userName,
+          userPhoto: widget.userPhoto,
         ),
         _userAction(),
       ],
@@ -142,7 +153,8 @@ class _FullScreenImageState extends State<FullScreenImage>
 }
 
 class _BuildPhotoMeta extends StatelessWidget {
-  _BuildPhotoMeta({Key key, this.controller, this.name, this.userName})
+  _BuildPhotoMeta(
+      {Key key, this.controller, this.name, this.userName, this.userPhoto})
       : userAvaterOpacity = Tween(begin: 0.0, end: 1.0).animate(
           CurvedAnimation(
             parent: controller,
@@ -165,6 +177,7 @@ class _BuildPhotoMeta extends StatelessWidget {
         ),
         super(key: key);
 
+  final String userPhoto;
   final String name;
   final String userName;
 
@@ -176,38 +189,40 @@ class _BuildPhotoMeta extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: AnimatedBuilder(
-            builder: (_, __) {
-              return Row(
-                children: <Widget>[
-                  Opacity(
-                    opacity: userAvaterOpacity.value,
-                    child: UserAvatar(
-                        'https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: AnimatedBuilder(
+          builder: (_, __) {
+            return Row(
+              children: <Widget>[
+                Opacity(
+                  opacity: userAvaterOpacity.value,
+                  child: UserAvatar(userPhoto),
+                ),
+                SizedBox(width: 10),
+                Opacity(
+                  opacity: textOpacity.value,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      name == null
+                          ? Text('')
+                          : Text(name, style: AppStyles.h1Black),
+                      userName == null
+                          ? Text('')
+                          : Text(
+                              '@$userName',
+                              style: AppStyles.h5Black
+                                  .copyWith(color: AppColors.manatee),
+                            ),
+                    ],
                   ),
-                  SizedBox(width: 10),
-                  Opacity(
-                    opacity: textOpacity.value,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        name == null
-                            ? Text('')
-                            : Text(name, style: AppStyles.h1Black),
-                        userName == null
-                            ? Text('')
-                            : Text('@$userName',
-                                style: AppStyles.h5Black
-                                    .copyWith(color: AppColors.manatee)),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            },
-            animation: controller,
-          )),
+                )
+              ],
+            );
+          },
+          animation: controller,
+        ),
+      ),
     );
   }
 }

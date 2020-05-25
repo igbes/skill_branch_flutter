@@ -7,6 +7,7 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
+
 int currentTab = 0;
 List<Widget> pages = [
   Feed(),
@@ -29,19 +30,19 @@ class _HomeState extends State<Home> {
         currentTab: currentTab,
         items: [
           BottomNavyBarItem(
-            asset: AppIcons.home, 
+            asset: AppIcons.home,
             title: Text('Feed'),
             activeColor: AppColors.dodgerBlue,
             inactiveColor: AppColors.manatee,
           ),
           BottomNavyBarItem(
-            asset: AppIcons.home, 
+            asset: AppIcons.home,
             title: Text('Search'),
             activeColor: AppColors.dodgerBlue,
             inactiveColor: AppColors.manatee,
           ),
           BottomNavyBarItem(
-            asset: AppIcons.home, 
+            asset: AppIcons.home,
             title: Text('User'),
             activeColor: AppColors.dodgerBlue,
             inactiveColor: AppColors.manatee,
@@ -64,7 +65,7 @@ class BottomNavyBar extends StatelessWidget {
     this.items,
     this.currentTab,
     this.animationDuration = const Duration(milliseconds: 270),
-    this.itemCornerRadius = 24, 
+    this.itemCornerRadius = 24,
     this.curve,
   }) : super(key: key);
 
@@ -140,18 +141,18 @@ class _ItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-        duration: animationDuration,
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        width: isSelected
-            ? 150
-            : (MediaQuery.of(context).size.width - 150 - 8 * 4 - 4 * 2) / 2,
-        curve: curve,
-        decoration: BoxDecoration(
-          color:
-              isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
-          borderRadius: BorderRadius.circular(itemCornerRadius),
-        ),
-        child: Row(children: [
+      duration: animationDuration,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      width: isSelected
+          ? 150
+          : (MediaQuery.of(context).size.width - 150 - 8 * 4 - 4 * 2) / 2,
+      curve: curve,
+      decoration: BoxDecoration(
+        color: isSelected ? item.activeColor.withOpacity(0.2) : backgroundColor,
+        borderRadius: BorderRadius.circular(itemCornerRadius),
+      ),
+      child: Row(
+        children: [
           Icon(item.asset,
               size: 20,
               color: isSelected ? item.activeColor : item.inactiveColor),
@@ -170,7 +171,9 @@ class _ItemWidget extends StatelessWidget {
               ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 }
 

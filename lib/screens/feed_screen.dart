@@ -42,12 +42,22 @@ class _FeedState extends State<Feed> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => FullScreenImage(photo: kFlutterDash, name: 'Vasya Pupkin', userName: 'vasya', index: index)));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FullScreenImage(
+                  userPhoto:
+                      'https://skill-branch.ru/img/speakers/Adechenko.jpg',
+                  photo: kFlutterDash,
+                  name: 'Vasya Pupkin',
+                  userName: 'vasya',
+                  index: index,
+                ),
+              ),
+            );
           },
-          child: Hero(tag: 'flutterLogo-$index', child: Photo(photoLink: kFlutterDash)),
-          // child: Photo(photoLink: kFlutterDash)
-          
+          child: Hero(
+              tag: 'flutterLogo-$index', child: Photo(photoLink: kFlutterDash)),
         ),
         _buildPhotoMeta(index),
         Padding(
@@ -66,26 +76,28 @@ class _FeedState extends State<Feed> {
   Widget _buildPhotoMeta(int index) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
-          Widget>[
-        Row(
-          children: <Widget>[
-            UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
-            SizedBox(width: 6),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('Vasya Pupkin', style: AppStyles.h2Black),
-                Text('@vasya',
-                    style:
-                        AppStyles.h5Black.copyWith(color: AppColors.manatee)),
-              ],
-            ),
-          ],
-        ),
-        LikeButton(likeCount: 10, isliked: true),
-      ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              UserAvatar('https://skill-branch.ru/img/speakers/Adechenko.jpg'),
+              SizedBox(width: 6),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Vasya Pupkin', style: AppStyles.h2Black),
+                  Text('@vasya',
+                      style:
+                          AppStyles.h5Black.copyWith(color: AppColors.manatee)),
+                ],
+              ),
+            ],
+          ),
+          LikeButton(likeCount: 10, isliked: true),
+        ],
+      ),
     );
   }
 }
