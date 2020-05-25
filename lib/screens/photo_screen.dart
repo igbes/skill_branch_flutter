@@ -9,7 +9,8 @@ import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
 
 class FullScreenImage extends StatefulWidget {
   FullScreenImage(
-      {this.userPhoto,
+      {this.heroTag,
+      this.userPhoto,
       this.photo,
       this.name,
       this.userName,
@@ -18,6 +19,7 @@ class FullScreenImage extends StatefulWidget {
       Key key})
       : super(key: key);
 
+  final String heroTag;
   final String userPhoto;
   final String photo;
   final String name;
@@ -86,7 +88,7 @@ class _FullScreenImageState extends State<FullScreenImage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Hero(
-            tag: 'flutterLogo-${widget.index}',
+            tag: '${widget.heroTag}-${widget.index}',
             child: Photo(photoLink: widget.photo)),
         _photoDescription(),
         _BuildPhotoMeta(

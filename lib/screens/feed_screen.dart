@@ -46,6 +46,7 @@ class _FeedState extends State<Feed> {
               context,
               MaterialPageRoute(
                 builder: (context) => FullScreenImage(
+                  heroTag: 'flutterLogo-$index',
                   userPhoto:
                       'https://skill-branch.ru/img/speakers/Adechenko.jpg',
                   photo: kFlutterDash,
