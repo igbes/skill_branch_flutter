@@ -15,7 +15,7 @@ class FullScreenImage extends StatefulWidget {
       this.name,
       this.userName,
       this.altDescription,
-      this.index,
+      // this.index,
       Key key})
       : super(key: key);
 
@@ -25,7 +25,7 @@ class FullScreenImage extends StatefulWidget {
   final String name;
   final String userName;
   final String altDescription;
-  final int index;
+  // final int index;
 
   @override
   _FullScreenImageState createState() => _FullScreenImageState();
@@ -88,7 +88,8 @@ class _FullScreenImageState extends State<FullScreenImage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Hero(
-            tag: '${widget.heroTag}${widget.index}',
+          tag: widget.heroTag,
+            // tag: '${widget.heroTag}${widget.index}',
             child: Photo(photoLink: widget.photo)),
         _photoDescription(),
         _BuildPhotoMeta(
