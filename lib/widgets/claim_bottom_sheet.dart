@@ -27,7 +27,6 @@ class ClaimBottomSheet extends StatelessWidget {
                 color: AppColors.mercury,
               ),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children:
                     complaints.map((e) => _complaint(e, context)).toList(),
