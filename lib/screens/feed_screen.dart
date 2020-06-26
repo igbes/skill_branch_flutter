@@ -43,23 +43,23 @@ class _FeedState extends State<Feed> {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) => FullScreenImage(
-                  heroTag: '$kTag$index',
-                  userPhoto:
-                      'https://skill-branch.ru/img/speakers/Adechenko.jpg',
-                  photo: kFlutterDash,
-                  name: 'Vasya Pupkin',
-                  userName: 'vasya',
-                  // index: index,
+              '/fullScreenImage',
+              arguments: FullScreenImageArguments(
+                routeSettings: RouteSettings(
+                  arguments: 'Some title',
                 ),
+                heroTag: '$kTag$index',
+                userPhoto: 'https://skill-branch.ru/img/speakers/Adechenko.jpg',
+                photo: kFlutterDash,
+                name: 'Vasya Pupkin',
+                userName: 'vasya',
               ),
             );
           },
-          child: Hero(
-              tag: '$kTag$index', child: Photo(photoLink: kFlutterDash)),
+          child:
+              Hero(tag: '$kTag$index', child: Photo(photoLink: kFlutterDash)),
         ),
         _buildPhotoMeta(index),
         Padding(
@@ -68,7 +68,7 @@ class _FeedState extends State<Feed> {
             'This is Flutter dash. I like it :)',
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: AppStyles.h3.copyWith(color: AppColors.manatee),
+            style:Theme.of(context).textTheme.headline3.copyWith(color: AppColors.manatee),
           ),
         ),
       ],
@@ -89,10 +89,10 @@ class _FeedState extends State<Feed> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text('Vasya Pupkin', style: AppStyles.h2Black),
+                  Text('Vasya Pupkin', style: Theme.of(context).textTheme.headline1),
                   Text('@vasya',
                       style:
-                          AppStyles.h5Black.copyWith(color: AppColors.manatee)),
+                          Theme.of(context).textTheme.headline5.copyWith(color: AppColors.manatee)),
                 ],
               ),
             ],

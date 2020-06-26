@@ -2,6 +2,7 @@ import 'package:FlutterGalleryApp/res/colors.dart';
 import 'package:flutter/material.dart';
 import 'feed_screen.dart';
 import '../res/res.dart';
+// import 'demo_screen.dart';
 
 class Home extends StatefulWidget {
   @override

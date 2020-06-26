@@ -1,3 +1,4 @@
+import 'package:FlutterGalleryApp/widgets/claim_bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -6,6 +7,28 @@ import 'package:FlutterGalleryApp/res/res.dart';
 import 'package:FlutterGalleryApp/widgets/like_button.dart';
 import 'package:FlutterGalleryApp/widgets/photo.dart';
 import 'package:FlutterGalleryApp/widgets/user_avatar.dart';
+
+class FullScreenImageArguments {
+  FullScreenImageArguments({
+    this.heroTag,
+    this.userPhoto,
+    this.photo,
+    this.name,
+    this.userName,
+    this.altDescription,
+    this.key,
+    this.routeSettings,
+  });
+
+  final String heroTag;
+  final String userPhoto;
+  final String photo;
+  final String name;
+  final String userName;
+  final String altDescription;
+  final Key key;
+  final RouteSettings routeSettings;
+}
 
 class FullScreenImage extends StatefulWidget {
   FullScreenImage(
@@ -63,17 +86,7 @@ class _FullScreenImageState extends State<FullScreenImage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text('Photo', style: TextStyle(color: AppColors.black)),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(CupertinoIcons.back, color: AppColors.grayChateau),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: Column(
         children: <Widget>[
           _buildItem(),
@@ -83,14 +96,33 @@ class _FullScreenImageState extends State<FullScreenImage>
     );
   }
 
+  AppBar _buildAppBar() {
+    // String title = ModalRoute.of(context).settings.arguments;
+    return AppBar(
+      actions: <Widget>[
+        ClaimBottomSheet(),
+      ],
+      backgroundColor: AppColors.white,
+      title: Text(
+        // title,
+        'Photo',
+        style: Theme.of(context).textTheme.headline1,
+      ),
+      centerTitle: true,
+      leading: IconButton(
+        icon: Icon(CupertinoIcons.back, color: AppColors.grayChateau),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
   Widget _buildItem() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Hero(
-          tag: widget.heroTag,
-            // tag: '${widget.heroTag}${widget.index}',
-            child: Photo(photoLink: widget.photo)),
+        Hero(tag: widget.heroTag, child: Photo(photoLink: widget.photo)),
         _photoDescription(),
         _BuildPhotoMeta(
           controller: _controller,
@@ -111,9 +143,9 @@ class _FullScreenImageState extends State<FullScreenImage>
           : Text(widget.altDescription,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: AppStyles.h3.copyWith(
-                color: Colors.black,
-              )),
+              style: Theme.of(context).textTheme.headline1.copyWith(
+                    color: Colors.black,
+                  )),
     );
   }
 
@@ -131,16 +163,70 @@ class _FullScreenImageState extends State<FullScreenImage>
               child: LikeButton(likeCount: 10, isliked: true),
             ),
           ),
-          _button('Save'),
-          _button('Visit'),
+          _buildButton('Save', () {
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Downloading photos'),
+                content: Text('Are you sure you want to upload a photo?'),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Download',
+                        style: Theme.of(context).textTheme.headline1),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Cancel',
+                        style: Theme.of(context).textTheme.headline1),
+                  ),
+                ],
+              ),
+            );
+          }),
+          _buildButton('Visit', () async {
+            OverlayState overlayState = Overlay.of(context);
+
+            OverlayEntry overlayEntry = OverlayEntry(
+              builder: (BuildContext context) {
+                return Positioned(
+                  top: MediaQuery.of(context).viewInsets.top + 50,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.fromLTRB(16, 10, 16, 10),
+                        decoration: BoxDecoration(
+                          color: AppColors.mercury,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text('ScillBranch'),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+
+            overlayState.insert(overlayEntry);
+            await Future.delayed(Duration(seconds: 1));
+            overlayEntry.remove();
+          }),
         ],
       ),
     );
   }
 
-  Widget _button(text) {
+  Widget _buildButton(String text, VoidCallback callback) {
     return GestureDetector(
-      onTap: () {},
+      onTap: callback,
       child: Container(
         decoration: BoxDecoration(
             color: Colors.blue[400],
@@ -209,14 +295,12 @@ class _BuildPhotoMeta extends StatelessWidget {
                     children: <Widget>[
                       name == null
                           ? Text('')
-                          : Text(name, style: AppStyles.h1Black),
+                          : Text(name,
+                              style: Theme.of(context).textTheme.headline1),
                       userName == null
                           ? Text('')
-                          : Text(
-                              '@$userName',
-                              style: AppStyles.h5Black
-                                  .copyWith(color: AppColors.manatee),
-                            ),
+                          : Text(name,
+                              style: Theme.of(context).textTheme.headline5),
                     ],
                   ),
                 )

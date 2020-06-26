@@ -12,7 +12,6 @@ class LikeButton extends StatefulWidget {
 }
 
 class _LikeButtonState extends State<LikeButton> {
-  
   int likeCount;
   bool isLiked;
 
@@ -28,28 +27,25 @@ class _LikeButtonState extends State<LikeButton> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        setState(() {
-          isLiked = !isLiked;
-          if (isLiked) {
-            likeCount++;
-          } else {
-            likeCount--;
-          }
-        });
+        setState(
+          () {
+            isLiked = !isLiked;
+            if (isLiked) {
+              likeCount++;
+            } else {
+              likeCount--;
+            }
+          },
+        );
       },
-      // child: Center(
-      //   child: Padding(
-      //     padding: EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Icon(isLiked ? AppIcons.like_fill : AppIcons.like),
-              SizedBox(width: 4.21),
-              Text(likeCount.toString()),
-            ],
-          ),
-      //   ),
-      // ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(isLiked ? AppIcons.like_fill : AppIcons.like),
+          SizedBox(width: 4.21),
+          Text(likeCount.toString()),
+        ],
+      ),
     );
   }
 }
