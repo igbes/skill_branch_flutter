@@ -181,7 +181,7 @@ class _FullScreenImageState extends State<FullScreenImage>
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cancel',
+                    child: Text('Close',
                         style: Theme.of(context).textTheme.headline1),
                   ),
                 ],
