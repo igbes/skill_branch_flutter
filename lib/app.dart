@@ -5,6 +5,7 @@ import 'package:FlutterGalleryApp/screens/home.dart';
 import 'package:FlutterGalleryApp/screens/photo_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:connectivity/connectivity.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: buildAppTextTheme(),
       ),
-      home: Home(),
+      home: Home(Connectivity().onConnectivityChanged),
     );
   }
 }

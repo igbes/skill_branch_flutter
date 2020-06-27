@@ -1,10 +1,16 @@
+import 'dart:async';
 import 'package:FlutterGalleryApp/res/colors.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'feed_screen.dart';
 import '../res/res.dart';
 // import 'demo_screen.dart';
 
 class Home extends StatefulWidget {
+  Home(this.onConnectivityChanged);
+
+  final Stream<ConnectivityResult> onConnectivityChanged;
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -17,6 +23,33 @@ List<Widget> pages = [
 ];
 
 class _HomeState extends State<Home> {
+  StreamSubscription subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription =
+        widget.onConnectivityChanged.listen((ConnectivityResult result) {
+      switch (result) {
+        case ConnectivityResult.wifi:
+// Вызовете удаление Overlay тут
+          break;
+        case ConnectivityResult.mobile:
+// Вызовете удаление Overlay тут
+          break;
+        case ConnectivityResult.none:
+// Вызовете отображения Overlay тут
+          break;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
