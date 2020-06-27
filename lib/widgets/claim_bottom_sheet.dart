@@ -45,7 +45,10 @@ class ClaimBottomSheet extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 10),
           alignment: Alignment.center,
-          child: Text(text),
+          child: Text(
+            text.toUpperCase(),
+            style: Theme.of(context).textTheme.headline1,
+          ),
         ),
         onTap: () {
           Navigator.pop(context);
