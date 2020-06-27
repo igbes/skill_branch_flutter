@@ -269,7 +269,6 @@ class _BuildPhotoMeta extends StatelessWidget {
   final String userPhoto;
   final String name;
   final String userName;
-
   final Animation<double> controller;
   final Animation<double> userAvaterOpacity;
   final Animation<double> textOpacity;
