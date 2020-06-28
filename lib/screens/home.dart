@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'feed_screen.dart';
 import '../res/res.dart';
+import 'package:FlutterGalleryApp/main.dart';
 // import 'demo_screen.dart';
 
 class Home extends StatefulWidget {
@@ -24,6 +25,7 @@ List<Widget> pages = [
 
 class _HomeState extends State<Home> {
   StreamSubscription subscription;
+  ConnectivityOverlay connectivityOverlay = ConnectivityOverlay();
 
   @override
   void initState() {
@@ -32,13 +34,18 @@ class _HomeState extends State<Home> {
         widget.onConnectivityChanged.listen((ConnectivityResult result) {
       switch (result) {
         case ConnectivityResult.wifi:
-// Вызовете удаление Overlay тут
+          // Вызовете удаление Overlay тут
+          connectivityOverlay.removeOverlay(context);
           break;
         case ConnectivityResult.mobile:
-// Вызовете удаление Overlay тут
+          // Вызовете удаление Overlay тут
+          connectivityOverlay.removeOverlay(context);
+
           break;
         case ConnectivityResult.none:
-// Вызовете отображения Overlay тут
+          // Вызовете отображения Overlay тут
+          connectivityOverlay.showOverlay(
+              context, Text('No internet connection'));
           break;
       }
     });
